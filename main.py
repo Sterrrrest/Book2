@@ -11,18 +11,18 @@ if __name__ == '__main__':
     parser.add_argument('-l', '--last_book', help='Номер последней книги', type=int, default=10)
     args = parser.parse_args()
 
-    for id_book in range(args.first_book, args.last_book):
-        url_download = f"https://tululu.org/txt.php?id={id_book}"
+    for book_id in range(args.first_book, args.last_book):
+        url_download = f"https://tululu.org/txt.php?id={book_id}"
         response = requests.get(url_download)
         response.raise_for_status()
 
         if not response.history:
 
-            url_name = f'https://tululu.org/b{id_book}'
+            url_name = f'https://tululu.org/b{book_id}'
             book_page = requests.get(url_name)
             book_page.raise_for_status()
 
-            filename = f"{id_book}. {parse_book_page(book_page)['title']}"
+            filename = f"{book_id}. {parse_book_page(book_page)['title']}"
             print(filename)
             # download_txt(response, f"{id_book}. {parse_book_page(book_page)['title']}", folder='books/')
             #
