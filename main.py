@@ -12,8 +12,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     for book_id in range(args.first_book, args.last_book):
-        url_download = f"https://tululu.org/txt.php?id={book_id}"
-        response = requests.get(url_download)
+        url_download = "https://tululu.org/txt.php"
+        payLoad = {'id': f'{book_id}'
+                   }
+        response = requests.get(url_download, params=payLoad)
         response.raise_for_status()
 
         if not response.history:
