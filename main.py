@@ -26,12 +26,13 @@ if __name__ == '__main__':
 
             filename = f"{book_id}. {parse_book_page(book_page)['title']}"
             print(filename)
-            # download_txt(response, f"{id_book}. {parse_book_page(book_page)['title']}", folder='books/')
-            #
-            # download_image(parse_book_page(book_page)['img_url'],
-            #                (parse_book_page(book_page)['filename_img']), folder='foto/')
-            #
-            # comments = parse_book_page(book_page)['comments']
-            #
-            # type_books = parse_book_page(book_page)['types_book']
+
+            try:
+                download_txt(response, f"{id_book}. {parse_book_page(book_page)['title']}", folder='books/')
+                download_image(parse_book_page(book_page)['img_url'],
+                           (parse_book_page(book_page)['filename_img']), folder='foto/')
+
+            except requests.exceptions.HTTPError:
+                pass
+
 
