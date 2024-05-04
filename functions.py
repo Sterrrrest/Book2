@@ -41,14 +41,10 @@ def parse_book_page(page):
     filename_img = sanitize_filename(urlparse(book_img_url).path.split('/')[-1])
 
     type_books_tags = page_soup.find('span', class_='d_book').find_all('a')
-    type_books = []
-    for t in type_books_tags:
-        type_books.append(t.text)
+    type_books = [book_type.text for book_type in type_books_tags]
 
     comments_tag = page_soup.find_all('div', class_='texts')
-    comments = []
-    for comment in comments_tag:
-        comments.append(comment.text.split(')')[-1])
+    comments = [comment.text.split(')')[-1] for comment in comments_tag]
 
     book = {'title': page_soup.find('h1').text.split('::')[0].strip(),
             'author': page_soup.find('h1').text.split('::')[1].strip(),
