@@ -7,9 +7,10 @@ from pathlib import Path
 from pathvalidate import sanitize_filename
 from urllib.parse import urljoin, urlparse
 
-env = Env()
-env.read_env()
-location = env('PATH')
+if __name__ == '__main__':
+    env = Env()
+    env.read_env()
+    location = env('PATH')
 
 
 def download_txt(response, filename, folder='books/'):
