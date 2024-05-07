@@ -24,7 +24,6 @@ if __name__ == '__main__':
         except requests.HTTPError:
             pass
         try:
-            filename = f"{book_id}. {parse_book_page(book_page)['title']}"
             download_txt(response, f"{book_id}. {parse_book_page(book_page)['title']}", folder='books/')
             download_image(parse_book_page(book_page)['img_url'], (parse_book_page(book_page)['filename_img']),
                            folder='foto/')
