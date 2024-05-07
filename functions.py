@@ -13,6 +13,11 @@ if __name__ == '__main__':
     location = env('PATH')
 
 
+def check_for_redirect(response):
+    if response.history:
+        raise requests.HTTPError
+
+
 def download_txt(response, filename, folder='books/'):
     path = f"{folder}"
     Path(path).mkdir(parents=True, exist_ok=True)
