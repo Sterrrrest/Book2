@@ -19,8 +19,8 @@ if __name__ == '__main__':
 
         if not response.history:
 
-            url_name = f'https://tululu.org/b{book_id}'
-            book_page = requests.get(url_name)
+            book_id_url = f'https://tululu.org/b{book_id}'
+            book_page = requests.get(book_id_url)
             book_page.raise_for_status()
 
             filename = f"{book_id}. {parse_book_page(book_page)['title']}"
