@@ -1,7 +1,7 @@
 import requests
 import argparse
 
-from functions import download_txt, download_image, parse_book_page
+from functions import download_txt, download_image, parse_book_page, check_for_redirect
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -16,22 +16,20 @@ if __name__ == '__main__':
         payLoad = {'id': f'{book_id}'}
         response = requests.get(url_download, params=payLoad)
         response.raise_for_status()
-
-        if not response.history:
-
+        try:
+            check_for_redirect(response)
             book_id_url = f'https://tululu.org/b{book_id}'
             book_page = requests.get(book_id_url)
             book_page.raise_for_status()
-
+        except requests.HTTPError:
+            pass
+        try:
             filename = f"{book_id}. {parse_book_page(book_page)['title']}"
-            print(filename)
+            download_txt(response, f"{book_id}. {parse_book_page(book_page)['title']}", folder='books/')
+            download_image(parse_book_page(book_page)['img_url'], (parse_book_page(book_page)['filename_img']),
+                           folder='foto/')
+        except requests.HTTPError:
+            pass
 
-            try:
-                download_txt(response, f"{id_book}. {parse_book_page(book_page)['title']}", folder='books/')
-                download_image(parse_book_page(book_page)['img_url'],
-                           (parse_book_page(book_page)['filename_img']), folder='foto/')
-
-            except requests.exceptions.HTTPError:
-                pass
 
 
