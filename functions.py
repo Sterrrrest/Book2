@@ -1,16 +1,10 @@
 import requests
 import os
 
-from environs import Env
 from bs4 import BeautifulSoup
 from pathlib import Path
 from pathvalidate import sanitize_filename
 from urllib.parse import urljoin, urlparse
-
-if __name__ == '__main__':
-    env = Env()
-    env.read_env()
-    location = env('PATH')
 
 
 def check_for_redirect(response):
