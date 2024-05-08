@@ -37,8 +37,8 @@ def download_image(img_url, folder='foto/'):
 def parse_book_page(page):
     page_soup = BeautifulSoup(page.text, 'lxml')
 
-    filename_img = page_soup.find('div', class_='bookimage').find('img')['src'].split('/')[-1]
-    book_img_url = urljoin('https://tululu.org/shots/ ', filename_img)
+    filename_img = page_soup.find('div', class_='bookimage').find('img')['src']
+    book_img_url = urljoin(page.url, filename_img)
 
     type_books_tags = page_soup.find('span', class_='d_book').find_all('a')
     type_books = [book_type.text for book_type in type_books_tags]
