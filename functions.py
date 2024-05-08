@@ -23,13 +23,14 @@ def download_txt(response, filename, folder='books/'):
     return filename
 
 
-def download_image(img_url, filename, folder='foto/'):
+def download_image(img_url, folder='foto/'):
 
     Path(f"{folder}").mkdir(parents=True, exist_ok=True)
     response = requests.get(img_url)
     response.raise_for_status()
+    filename_img = img_url.split('/')[-1]
 
-    with open(f"{folder}{filename}", 'wb') as file:
+    with open(f"{folder}{filename_img}", 'wb') as file:
         file.write(response.content)
 
 
