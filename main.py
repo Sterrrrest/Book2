@@ -1,5 +1,6 @@
 import requests
 import argparse
+import time
 
 from functions import download_txt, download_image, parse_book_page, check_for_redirect
 
@@ -21,13 +22,13 @@ if __name__ == '__main__':
             book_id_url = f'https://tululu.org/b{book_id}'
             book_page = requests.get(book_id_url)
             book_page.raise_for_status()
-            # download_txt(response, f"{book_id}. {parse_book_page(book_page)['title']}", folder='books/')
+            download_txt(response, f"{book_id}. {parse_book_page(book_page)['title']}", folder='books/')
             download_image(parse_book_page(book_page)['img_url'], folder='foto/')
         except requests.HTTPError:
             print('Error: No such book_id.')
         except requests.ConnectionError:
             print('A Connection error occurred.')
-
+        time.sleep(60)
 
 
 
